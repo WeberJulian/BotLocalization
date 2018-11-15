@@ -1,5 +1,6 @@
 from picamera.array import PiRGBArray
 from picamera import PiCamera
+import picamera.arrays
 import cv2
 
 CALIBRATION_FRAMES = 300
@@ -21,29 +22,27 @@ input()
 
 
 #Start capturing images for calibration
-camera = PiCamera()
-camera.resolution = (1920, 1080)
-camera.framerate = 30
-rawCapture = PiRGBArray(camera, size=(1920, 1080))
+with picamera.PiCamera() as camera:
+    with picamera.array.PiRGBArray(camera) as output:
+        allCorners = []
+        allIds = []
+        decimator = 0
+        for i in range(CALIBRATION_FRAMES):
+            camera.capture(output, 'rgb')
+            image = output.array
 
-allCorners = []
-allIds = []
-decimator = 0
-for i in range(CALIBRATION_FRAMES):
-    camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-	image = frame.array
+            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            res = cv2.aruco.detectMarkers(gray,dictionary)
 
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    res = cv2.aruco.detectMarkers(gray,dictionary)
+            if len(res[0])>0:
+                res2 = cv2.aruco.interpolateCornersCharuco(res[0],res[1],gray,board)
+                if res2[1] is not None and res2[2] is not None and len(res2[1])>3 and decimator%3==0:
+                    allCorners.append(res2[1])
+                    allIds.append(res2[2])
 
-    if len(res[0])>0:
-        res2 = cv2.aruco.interpolateCornersCharuco(res[0],res[1],gray,board)
-        if res2[1] is not None and res2[2] is not None and len(res2[1])>3 and decimator%3==0:
-            allCorners.append(res2[1])
-            allIds.append(res2[2])
-
-        cv2.aruco.drawDetectedMarkers(gray,res[0],res[1])
-    decimator+=1
+                cv2.aruco.drawDetectedMarkers(gray,res[0],res[1])
+            decimator+=1
+            output.truncate(0)
 
 imsize = gray.shape
 
