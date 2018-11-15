@@ -16,3 +16,8 @@ Beeing able to send the two robots their position and the position of their enne
 - [ ] 8) Benchmark the diffrents implementations to see which one is preferable
 - [ ] 9) Implement some kind of vizualtisation interface to see robots movments in real time (three.js ?)
 - [ ] 10) Setup the live comunication with the robots
+
+## Work done :
+
+1) The openCV library is compiled and usable on the Raspery Pi
+2) Benchmark is fonctionnal and the results are available here [*Benchmarks*](https://github.com/WeberJulian/BotLocalization/blob/master/benchmark/benchmarks.md)
