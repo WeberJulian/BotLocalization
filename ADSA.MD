@@ -21,3 +21,4 @@ Beeing able to send the two robots their position and the position of their enne
 
 1) The openCV library is compiled and usable on the Raspery Pi
 2) Benchmark is fonctionnal and the results are available here [*Benchmarks*](https://github.com/WeberJulian/BotLocalization/blob/master/benchmark/benchmarks.md)
+3) I already manage to handle the video feed and I am working on the calibration of the camera
