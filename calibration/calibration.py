@@ -1,9 +1,9 @@
 from picamera.array import PiRGBArray
 from picamera import PiCamera
-import picamera.arrays
+import picamera
 import cv2
 
-CALIBRATION_FRAMES = 300
+CALIBRATION_FRAMES = 25
 
 print("Press enter to start the generation of the board...")
 input()
@@ -33,14 +33,13 @@ with picamera.PiCamera() as camera:
 
             gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             res = cv2.aruco.detectMarkers(gray,dictionary)
+            print(res)
 
             if len(res[0])>0:
                 res2 = cv2.aruco.interpolateCornersCharuco(res[0],res[1],gray,board)
                 if res2[1] is not None and res2[2] is not None and len(res2[1])>3 and decimator%3==0:
                     allCorners.append(res2[1])
                     allIds.append(res2[2])
-
-                cv2.aruco.drawDetectedMarkers(gray,res[0],res[1])
             decimator+=1
             output.truncate(0)
 
