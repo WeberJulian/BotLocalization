@@ -16,9 +16,9 @@ objpoints = [] # 3d point in real world space
 imgpoints = [] # 2d points in image plane.
 
 images = glob.glob('calib_images/*.jpg')
-i = 0
+i = 1
 for fname in images:
-    print("Analyzing image : " + str(i))
+    print("Analyzing image " + fname + " (" + str(i) + "/" + str(len(images)) + ")")
     img = cv2.imread(fname)
     gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
