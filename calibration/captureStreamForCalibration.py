@@ -10,7 +10,7 @@ input()
 
 #Start capturing images for calibration
 with picamera.PiCamera() as camera:
-    camera.resolution = (1920, 1080)
+    camera.resolution = (1920, 1088)
     with picamera.array.PiRGBArray(camera) as output:
         for i in range(CALIBRATION_FRAMES):
             print("frame " + str(i))
