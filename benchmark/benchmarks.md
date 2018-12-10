@@ -2,7 +2,7 @@
 
 ## Simple ArUco benchmark
 
-_This test counts how many **aruco.detectMarkers()** can handle per seconds in a simple FullHD image_
+_This test counts how many **aruco.detectMarkers()** the machine can handle per seconds in a simple FullHD image_
 
 Results for **BENCH_TIME** = 5 seconds
 
