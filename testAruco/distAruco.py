@@ -27,6 +27,6 @@ with picamera.PiCamera() as camera:
             parameters = aruco.DetectorParameters_create()
             corners, ids, rejectedImgPoints = aruco.detectMarkers(gray, aruco_dict, parameters=parameters)
             if np.all(ids != None):
-                rvec, tvec,_ = aruco.estimatePoseSingleMarkers(corners[0], MARKER_SIZE, mtx, dist) 
+                rvec, tvec = aruco.estimatePoseSingleMarkers(corners[0], MARKER_SIZE, mtx, dist) 
                 print(rvec, tvec)
 

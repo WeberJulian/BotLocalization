@@ -20,7 +20,7 @@ parameters = aruco.DetectorParameters_create()
 corners, ids, rejectedImgPoints = aruco.detectMarkers(gray, aruco_dict, parameters=parameters)
 
 if np.all(ids != None):
-    rvec, tvec,_ = aruco.estimatePoseSingleMarkers(corners[0], 14, mtx, dist) #Estimate pose of each marker and return the values rvet and tvec---different from camera coefficients
+    rvec, tvec = aruco.estimatePoseSingleMarkers(corners[0], 14, mtx, dist) #Estimate pose of each marker and return the values rvet and tvec---different from camera coefficients
     #(rvec-tvec).any() # get rid of that nasty numpy value array error
 
 print(rvec, tvec)
