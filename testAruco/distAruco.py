@@ -28,5 +28,6 @@ with picamera.PiCamera() as camera:
             corners, ids, rejectedImgPoints = aruco.detectMarkers(gray, aruco_dict, parameters=parameters)
             if np.all(ids != None):
                 rvec, tvec = aruco.estimatePoseSingleMarkers(corners[0], MARKER_SIZE, mtx, dist) 
-                print(rvec, tvec)
+                euclDist = ((tvec[0][0][0])**2 + (tvec[0][0][1])**2 + (tvec[0][0][2])**2)**(1/2)
+                print(euclDist)
 
