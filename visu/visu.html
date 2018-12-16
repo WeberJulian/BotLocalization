@@ -1,14 +1,18 @@
 <html>
-        <head> 
-                <script src="/socket.io/socket.io.js"></script>
-                <script>
-                  var socket = io();
-                  socket.on('event', function(msg){
-                    console.log("Event")
-                 });
-                </script>
-            </head> 
-            <body>
-                <h1>Basic Socket Test</h1>
-            </body>
+
+<head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        socket.on('event', function (msg) {
+            console.log("Event")
+            console.log(msg)
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Basic Socket Test</h1>
+</body>
+
 </html>
