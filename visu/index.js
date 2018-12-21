@@ -3,6 +3,10 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const fs = require('fs');
 const readLastLines = require('read-last-lines');
+var THREE = require('three');
+var OBJLoader = require('three-obj-loader');
+
+OBJLoader(THREE);
 
 file = "./positions.log"
 

@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.15.2",
-    "read-last-lines": "^1.6.0"
+    "read-last-lines": "^1.6.0",
+    "three": "^0.99.0",
+    "three-obj-loader": "^1.1.3"
   }
 }

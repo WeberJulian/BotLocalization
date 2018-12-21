@@ -22,11 +22,38 @@
         }
     </style>
 </head>
-
+ 
 <body>
     <script src="https://fastcdn.org/three.js/73/three.min.js"></script>
-    <h1>Basic Socket Test</h1>
+    <script src="http://threejs.org/examples/js/loaders/OBJLoader.js"></script>
     <script>
+        var loader = new THREE.OBJLoader();
+        var R2D2
+        function loadModel() {
+            object.traverse(function (child) {
+                if (child.isMesh) child.material.map = texture;
+            });
+            object.position.y = - 95;
+            scene.add(object);
+        }
+        var manager = new THREE.LoadingManager(loadModel);
+        manager.onProgress = function (item, loaded, total) {
+            console.log(item, loaded, total);
+        };
+        // model
+        function onProgress(xhr) {
+            if (xhr.lengthComputable) {
+                var percentComplete = xhr.loaded / xhr.total * 100;
+                console.log('model ' + Math.round(percentComplete, 2) + '% downloaded');
+            }
+        }
+        function onError() { }
+        var loader = new THREE.OBJLoader(manager);
+        loader.load('R2D2.obj', function (obj) {
+            object = obj;
+        }, onProgress, onError);
+
+
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
@@ -34,23 +61,21 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        var geometry = new THREE.BoxGeometry(1, 1, 1);
-        var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        var cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
+        // var geometry = new THREE.BoxGeometry(1, 1, 1);
+        // var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        // var cube = new THREE.Mesh(geometry, material);
+        // scene.add(cube);
 
         camera.position.z = 5;
 
         var animate = function () {
             requestAnimationFrame(animate);
-            if(clockWise){
-                cube.rotation.x += 0.01;
+            if (clockWise) {
+                R2D2.rotation.x += 0.01;
             }
-            else{
-                cube.rotation.x -= 0.01;
+            else {
+                R2D2.rotation.x -= 0.01;
             }
-            
-
             renderer.render(scene, camera);
         };
 
