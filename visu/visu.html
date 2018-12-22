@@ -5,11 +5,6 @@
     <script>
         var clockWise = true;
         var socket = io();
-        socket.on('event', function (msg) {
-            console.log("Event")
-            console.log(msg)
-            clockWise = !clockWise;
-        });
     </script>
     <style>
         body {
@@ -22,64 +17,66 @@
         }
     </style>
 </head>
- 
-<body>
-    <script src="https://fastcdn.org/three.js/73/three.min.js"></script>
-    <script src="http://threejs.org/examples/js/loaders/OBJLoader.js"></script>
-    <script>
-        var loader = new THREE.OBJLoader();
-        var R2D2
-        function loadModel() {
-            object.traverse(function (child) {
-                if (child.isMesh) child.material.map = texture;
-            });
-            object.position.y = - 95;
-            scene.add(object);
-        }
-        var manager = new THREE.LoadingManager(loadModel);
-        manager.onProgress = function (item, loaded, total) {
-            console.log(item, loaded, total);
-        };
-        // model
-        function onProgress(xhr) {
-            if (xhr.lengthComputable) {
-                var percentComplete = xhr.loaded / xhr.total * 100;
-                console.log('model ' + Math.round(percentComplete, 2) + '% downloaded');
-            }
-        }
-        function onError() { }
-        var loader = new THREE.OBJLoader(manager);
-        loader.load('R2D2.obj', function (obj) {
-            object = obj;
-        }, onProgress, onError);
 
+<body>
+    <!-- Three.js r73 -->
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/r73/build/three.js"></script>
+
+    <!-- MTLLoader.js -->
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/r73/examples/js/loaders/MTLLoader.js"></script>
+
+    <!-- OBJMTLLoader.js -->
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/r73/examples/js/loaders/OBJLoader.js"></script>
+
+    <!-- OrbitControls.js -->
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/r73/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        function updateAtt(att, mesh){
+            R2D2.position.x = att[1];
+            R2D2.position.y = att[2];
+            R2D2.position.z = att[3];
+            R2D2.rotation.x = att[4];
+            R2D2.rotation.y = att[5];
+            R2D2.rotation.z = att[6]; 
+        }
+
+        var loader = new THREE.OBJLoader();
+        var R2D2;
 
         var scene = new THREE.Scene();
-        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        var ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+        scene.add(ambientLight);
+
+        var camera = new THREE.PerspectiveCamera(95, window.innerWidth / window.innerHeight, 0.1, 1000);
 
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
+        loader.load('R2D2.obj', function (mesh) {
+            R2D2 = mesh
+            scene.add(R2D2)
+            updateAtt([0, 0, 0, 0, 0, 0, 0], R2D2)
+            animate()
+        })
+
+        camera.position.z = 300;
+
+        var animate = function () {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        };
+
+        socket.on('event', function (msg) {
+            console.log(msg[0])
+            updateAtt(msg[0], R2D2)
+        });
+
         // var geometry = new THREE.BoxGeometry(1, 1, 1);
         // var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         // var cube = new THREE.Mesh(geometry, material);
         // scene.add(cube);
-
-        camera.position.z = 5;
-
-        var animate = function () {
-            requestAnimationFrame(animate);
-            if (clockWise) {
-                R2D2.rotation.x += 0.01;
-            }
-            else {
-                R2D2.rotation.x -= 0.01;
-            }
-            renderer.render(scene, camera);
-        };
-
-        animate();
     </script>
 </body>
 
