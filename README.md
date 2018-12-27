@@ -26,3 +26,5 @@ Beeing able to send the two robots their position and the position of their enne
 3) I already manage to handle the video feed and I am working on the calibration of the camera
 4) Calibration done, I've just finished eulidian distance evaluation from video feed
 5) Working 2D visualization
+
+![visu](visu/visu.png)
