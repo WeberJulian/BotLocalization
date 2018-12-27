@@ -10,7 +10,7 @@ Beeing able to send the two robots their position and the position of their enne
 - [X] 2) Use a simple preset to benchmark the diffrent plafomrs (number of frame per seconds)
 - [X] 3) Experiment with video feeds and calibrate the camera (distortion matrix)
 - [X] 4) Learn to recognize and calculate 3D position of printed QRcodes with OpenCV and ArcUco
-- [ ] 5) Implement vizualtisation interface to see the marker's position in real time in a 2D space (p5.js ?)
+- [X] 5) Implement vizualtisation interface to see the marker's position in real time in a 2D space (p5.js ?)
 - [ ] 6) Implement the physical solution on a reproduction of the official competition's Arena
 - [ ] 7) Beeing able to track all the robots at the same time
 
@@ -25,4 +25,4 @@ Beeing able to send the two robots their position and the position of their enne
 2) Benchmark is fonctionnal and the results are available here [*Benchmarks*](https://github.com/WeberJulian/BotLocalization/blob/master/benchmark/benchmarks.md)
 3) I already manage to handle the video feed and I am working on the calibration of the camera
 4) Calibration done, I've just finished eulidian distance evaluation from video feed
-5) Working on servers and 3D visualization
+5) Working 2D visualization
