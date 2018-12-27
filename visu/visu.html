@@ -31,13 +31,15 @@
     <!-- OrbitControls.js -->
     <script src="https://cdn.rawgit.com/mrdoob/three.js/r73/examples/js/controls/OrbitControls.js"></script>
     <script>
-        function updateAtt(att, mesh){
-            R2D2.position.x = att[1];
-            R2D2.position.y = att[2];
-            R2D2.position.z = att[3];
-            R2D2.rotation.x = att[4];
-            R2D2.rotation.y = att[5];
-            R2D2.rotation.z = att[6]; 
+        var robots = []
+        var arena = null;
+        function updateAtt(att) {
+            robots[att[0]].position.x = att[1];
+            robots[att[0]].position.y = att[2];
+            robots[att[0]].position.z = att[3];
+            robots[att[0]].rotation.x = att[4];
+            robots[att[0]].rotation.y = att[5];
+            robots[att[0]].rotation.z = att[6];
         }
 
         var loader = new THREE.OBJLoader();
@@ -45,7 +47,7 @@
 
         var scene = new THREE.Scene();
 
-        var ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+        var ambientLight = new THREE.AmbientLight( 0x404040 );
         scene.add(ambientLight);
 
         var camera = new THREE.PerspectiveCamera(95, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -54,14 +56,15 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        loader.load('R2D2.obj', function (mesh) {
-            R2D2 = mesh
-            scene.add(R2D2)
-            updateAtt([0, 0, 0, 0, 0, 0, 0], R2D2)
+        loader.load('dalek.obj', function (mesh) {
+            robots.push(mesh)
+            scene.add(robots[0])
+            updateAtt([0, 0, 0, 0, 0, 0, 0])
             animate()
         })
 
-        camera.position.z = 300;
+        camera.position.z = 600;
+        camera.rotation.y = 0;
 
         var animate = function () {
             requestAnimationFrame(animate);
@@ -70,13 +73,8 @@
 
         socket.on('event', function (msg) {
             console.log(msg[0])
-            updateAtt(msg[0], R2D2)
+            updateAtt(msg[0])
         });
-
-        // var geometry = new THREE.BoxGeometry(1, 1, 1);
-        // var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        // var cube = new THREE.Mesh(geometry, material);
-        // scene.add(cube);
     </script>
 </body>
 
