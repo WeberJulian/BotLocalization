@@ -2,79 +2,45 @@
 
 <head>
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var clockWise = true;
-        var socket = io();
-    </script>
-    <style>
-        body {
-            margin: 0;
-        }
-
-        canvas {
-            width: 100%;
-            height: 100%
-        }
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
 </head>
 
 <body>
-    <!-- Three.js r73 -->
-    <script src="https://cdn.rawgit.com/mrdoob/three.js/r73/build/three.js"></script>
-
-    <!-- MTLLoader.js -->
-    <script src="https://cdn.rawgit.com/mrdoob/three.js/r73/examples/js/loaders/MTLLoader.js"></script>
-
-    <!-- OBJMTLLoader.js -->
-    <script src="https://cdn.rawgit.com/mrdoob/three.js/r73/examples/js/loaders/OBJLoader.js"></script>
-
-    <!-- OrbitControls.js -->
-    <script src="https://cdn.rawgit.com/mrdoob/three.js/r73/examples/js/controls/OrbitControls.js"></script>
+    <H1>BotLocalization</H1>
     <script>
-        var robots = []
-        var arena = null;
-        function updateAtt(att) {
-            robots[att[0]].position.x = att[1];
-            robots[att[0]].position.y = att[2];
-            robots[att[0]].position.z = att[3];
-            robots[att[0]].rotation.x = att[4];
-            robots[att[0]].rotation.y = att[5];
-            robots[att[0]].rotation.z = att[6];
-        }
-
-        var loader = new THREE.OBJLoader();
-        var R2D2;
-
-        var scene = new THREE.Scene();
-
-        var ambientLight = new THREE.AmbientLight( 0x404040 );
-        scene.add(ambientLight);
-
-        var camera = new THREE.PerspectiveCamera(95, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-        var renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-        loader.load('dalek.obj', function (mesh) {
-            robots.push(mesh)
-            scene.add(robots[0])
-            updateAtt([0, 0, 0, 0, 0, 0, 0])
-            animate()
-        })
-
-        camera.position.z = 600;
-        camera.rotation.y = 0;
-
-        var animate = function () {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-        };
+        var socket = io();
+        var robots = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        var HEIGHT = 720
+        var WIDTH = 1080
+        var R1 = 150
+        var R2 = 100
+        var m = WIDTH / 3
 
         socket.on('event', function (msg) {
             console.log(msg[0])
             updateAtt(msg[0])
         });
+
+        function preload() {
+            var map = loadImage('map.png');
+            var YR1 = loadImage('yellow.png');
+            var YR2 = loadImage('yellowSmall.png');
+            var PR1 = loadImage('purple.png');
+            var PR2 = loadImage('purpleSmall.png');
+        }
+
+        function setup() {
+            createCanvas(WIDTH, HEIGHT);
+            background(map);
+        }
+
+        function draw() {
+            imageMode(CENTER);
+            translate(WIDTH/2,HEIGHT/2)
+            rotate(PI)
+            image(YR1,0,0,R1,R1)
+            
+        }
     </script>
 </body>
 
