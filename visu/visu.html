@@ -8,16 +8,16 @@
 <body>
     <H1>BotLocalization</H1>
     <script>
-        var socket = io();
-        var HEIGHT = 720
-        var WIDTH = 1080
-        var robots = [[85, 200, Math.PI/2], [110, 350, Math.PI/2], [WIDTH - 85, 200, 3*Math.PI/2], [WIDTH - 110, 350, 3*Math.PI/2]]
-        var robotSprits = []
-        var map
-        var R1 = 150
-        var R2 = 100
-        var m = WIDTH / 3
-        var packets = 0
+        let socket = io();
+        let HEIGHT = 720
+        let WIDTH = 1080
+        let robots = [[85, 200, Math.PI/2], [110, 350, Math.PI/2], [WIDTH - 85, 200, 3*Math.PI/2], [WIDTH - 110, 350, 3*Math.PI/2]]
+        let robotSprits = []
+        let map
+        let R1 = 150
+        let R2 = 100
+        let m = WIDTH / 3
+        let packets = 0
 
         socket.on('event', function (msg) {
             updatePositions(msg)
@@ -25,7 +25,7 @@
         });
 
         function updatePositions(positions){
-            for(var i = 0; i < positions.length; i++){
+            for(let i = 0; i < positions.length; i++){
                 console.log(positions)
                 let id = positions[i][0]
                 robots[id][0] = positions[i][1]

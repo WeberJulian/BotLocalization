@@ -14,8 +14,6 @@ dist = fn.mat()
 
 MARKER_SIZE = int(input("What is the size of the Aruco marker ? d="))
 
-parameters = aruco.DetectorParameters_create()
-aruco_dict = aruco.Dictionary_get(aruco.DICT_6X6_250)
 
 with picamera.PiCamera() as camera:
     camera.resolution = (1920, 1088)
@@ -25,9 +23,11 @@ with picamera.PiCamera() as camera:
             frame = output.array
             output.truncate(0)
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            aruco_dict = aruco.Dictionary_get(aruco.DICT_5X5_50)
+            parameters = aruco.DetectorParameters_create()
             corners, ids, rejectedImgPoints = aruco.detectMarkers(gray, aruco_dict, parameters=parameters)
+            print(corners)
+            print(ids)
             if np.all(ids != None):
                 rvec, tvec = aruco.estimatePoseSingleMarkers(corners[0], MARKER_SIZE, mtx, dist) 
-                euclDist = ((tvec[0][0][0])**2 + (tvec[0][0][1])**2 + (tvec[0][0][2])**2)**(1/2)
-                print(euclDist)
 
