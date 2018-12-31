@@ -11,12 +11,12 @@
         let socket = io();
         let HEIGHT = 720
         let WIDTH = 1080
+        let mm = WIDTH / 3000
         let robots = [[85/mm, 200/mm, Math.PI/2], [110/mm, 350/mm, Math.PI/2], [(WIDTH - 85)/mm, 200/mm, 3*Math.PI/2], [(WIDTH - 110)/mm, 350/mm, 3*Math.PI/2]]
         let robotSprits = []
         let map
         let R1 = 150
         let R2 = 100
-        let mm = WIDTH / 3000
         let packets = 0
 
         socket.on('event', function (msg) {
