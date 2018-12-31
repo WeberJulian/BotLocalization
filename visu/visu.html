@@ -16,7 +16,7 @@
         let map
         let R1 = 150
         let R2 = 100
-        let m = WIDTH / 3
+        let mm = WIDTH / 3000
         let packets = 0
 
         socket.on('event', function (msg) {
@@ -37,7 +37,7 @@
         function drawRobots(){
             for (let i = 0; i < robots.length; i++){
                 push()
-                translate(robots[i][0],robots[i][1])
+                translate(mm*robots[i][0],mm*robots[i][1])
                 rotate(robots[i][2])
                 if(i == 0 || i == 2){
                     image(robotSprits[i],0,0,R1,R1) 
