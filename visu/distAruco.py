@@ -35,10 +35,10 @@ with picamera.PiCamera() as camera:
                     print("marker " + str(id[0]))
                     print("x: {0}, y: {1}, z: {2}".format(rvec[0][0][0], rvec[0][0][1], rvec[0][0][2]))
                     print("rx: {0}, ry: {1}, rz: {2}".format(tvec[0][0][0], tvec[0][0][1], tvec[0][0][2]))
-                    line += "{0} {1} {2} {3}|".format(id[0]), rvec[0][0][0], rvec[0][0][1], tvec[0][0][0]))
+                    line += "{0} {1} {2} {3}|".format(id[0], rvec[0][0][0], rvec[0][0][1], tvec[0][0][0])
                     print("")
                     i+=1
                 line = line[:-1]
-                print(line)
+                print(line) #\n
             print("\n\n\n")
 
