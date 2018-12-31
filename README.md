@@ -12,7 +12,7 @@ Beeing able to send the two robots their position and the position of their enne
 - [X] 4) Learn to recognize and calculate 3D position of printed QRcodes with OpenCV and ArcUco
 - [X] 5) Implement vizualtisation interface to see the marker's position in real time in a 2D space (p5.js ?)
 - [ ] 6) Implement the physical solution on a reproduction of the official competition's Arena
-- [ ] 7) Beeing able to track all the robots at the same time
+- [X] 7) Beeing able to track all the robots at the same time
 
 ### Future
 - [ ] 8) Add all the robots, the key points and the arena on the 2D interface
