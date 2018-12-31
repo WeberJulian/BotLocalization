@@ -40,5 +40,7 @@ with picamera.PiCamera() as camera:
                     i+=1
                 line = line[:-1]
                 print(line) #\n
+                out.write(line + "\n")
+                out.close()
             print("\n\n\n")
 
