@@ -29,8 +29,11 @@ with picamera.PiCamera() as camera:
             if np.all(ids != None):
                 i = 0
                 for id in ids:
-                    print(id[0])
-                    print(corners[i])
+                    rvec, tvec = aruco.estimatePoseSingleMarkers(corners[0], MARKER_SIZE, mtx, dist)
+                    print("marker " + str(id[0]))
+                    print(rvec)
+                    print(tvec)
+                    print("")
                     i+=1
-            #rvec, tvec = aruco.estimatePoseSingleMarkers(corners[0], MARKER_SIZE, mtx, dist) 
+            print("\n")
 
